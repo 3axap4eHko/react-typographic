@@ -10,7 +10,7 @@ export default ({
   color = '#212121',
   fontFamily = '"Roboto", "Helvetica", "Arial", sans-serif',
   fontSize = 14,
-  fontWeightLight = 300,
+  fontWeightLight = 200,
   fontWeightRegular = 400,
   fontWeightMedium = 500,
   baseFontSize = 16,
@@ -31,6 +31,7 @@ export default ({
   letter-spacing: -0.04em;
   line-height: ${round(128 / 112)}em;
   margin-left: -0.06em;
+  font-weight: ${fontWeightLight};
 }
 
 .typographic-display3 {
