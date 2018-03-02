@@ -92,7 +92,7 @@ export default class Typographic extends Component {
   }
 
   render() {
-    const { className, children = null, type, align, transform, noWrap, gutterBottom, headlineMapping } = this.props;
+    const { className, children = null, type, align, transform, noWrap, gutterBottom, headlineMapping, ...props } = this.props;
     if (children === null) {
       return null;
     }
@@ -109,7 +109,7 @@ export default class Typographic extends Component {
     );
 
     return (
-      <Content className={finalClassName}>
+      <Content className={finalClassName} {...props}>
         {children}
       </Content>
     );
