@@ -98,13 +98,14 @@ export default class Typographic extends Component {
     }
     const Content = headlineMapping[type] || 'p';
 
-    const finalClassName = className || classNames(
+    const finalClassName = classNames(
       'typographic',
       `typographic-${type}`,
       align && `typographic-align-${align}`,
       transform && `typographic-transform-${transform}`,
       gutterBottom && 'typographic-gutter-bottom',
       noWrap && 'typographic-no-wrap',
+      className,
     );
 
     return (
