@@ -19,7 +19,7 @@ export default ({
   return `
 .typographic {
   margin: 0;
-  padding: 0,
+  padding: 0;
   color: ${color};
   font-family: ${fontFamily};
   font-size: ${pxToRem(fontSize, baseFontSize)};
