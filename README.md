@@ -1,35 +1,35 @@
 # React Typographic
 
-A typography component.
+Typographic component provides quick and fast way to have consistent text style.
 
 ## Props
 
-#### type: oneOf(['display4', 'display3', 'display2', 'display1', 'headline', 'title', 'subheading', 'body2', 'body1', 'caption', 'label', 'button', 'link'])
+##### type: oneOf(['display4', 'display3', 'display2', 'display1', 'headline', 'title', 'subheading', 'body2', 'body1', 'caption', 'label', 'button', 'link'])
 Type of typography
 
 Default: `body2`
 
-#### align: oneOf(['left', 'center', 'right', 'justify'])
+##### align: oneOf(['left', 'center', 'right', 'justify'])
 Typography text align
 
 Default: `inherit`
 
-#### transform: oneOf(['uppercase', 'lowercase', 'capitalize'])
+##### transform: oneOf(['uppercase', 'lowercase', 'capitalize'])
 Typography text transform
 
 Default: `none`
 
-#### noWrap: bool
+##### noWrap: bool
 A flag prevents text wrap
 
 Default: `false` 
 
-#### gutterBottom: bool
+##### gutterBottom: bool
 A flag adds bottom gutter
 
 Default: `false`
  
-#### headlineMapping: object
+##### headlineMapping: object
 A map of types to elements
 
 Default: `{
@@ -54,11 +54,6 @@ Default: `{
 ```javascript
 <Typographic type="display4" align="justify" gutterBottom>
 Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, 
-and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 </Typographic>
 ```
 
