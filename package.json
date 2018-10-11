@@ -1,6 +1,6 @@
 {
   "name": "react-typographic",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "description": "Typographic component",
   "main": "index.js",
   "scripts": {
