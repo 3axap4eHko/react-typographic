@@ -31,19 +31,19 @@ function getStyleElement() {
 }
 
 export const defaultHeadlineMapping = {
-  display4: 'h1',
-  display3: 'h2',
-  display2: 'h3',
-  display1: 'h4',
-  headline: 'h1',
-  title: 'h1',
-  subheading: 'h3',
-  body2: 'aside',
-  body1: 'span',
-  caption: 'div',
-  label: 'label',
+  h1: 'h1',
+  h2: 'h2',
+  h3: 'h3',
+  h4: 'h4',
+  h5: 'h5',
+  h6: 'h6',
+  subtitle1: 'h6',
+  subtitle2: 'h6',
+  body1: 'p',
+  body2: 'p',
   button: 'button',
-  link: 'a',
+  caption: 'div',
+  overline: 'div',
 };
 
 const defaultStyle = createStyle();
@@ -54,13 +54,12 @@ const context = {
 };
 
 export default class Typographic extends Component {
-
   static propTypes = {
     type: oneOfKey(defaultHeadlineMapping),
-    align: oneOf(['', 'left', 'center', 'right', 'justify']),
+    align: oneOf(['', 'inherit', 'left', 'center', 'right', 'justify']),
     transform: oneOf(['', 'uppercase', 'lowercase', 'capitalize']),
     noWrap: bool,
-    gutterBottom: bool,
+    lineClamp: number,
     headlineMapping: object,
   };
 
@@ -69,7 +68,6 @@ export default class Typographic extends Component {
     align: '',
     transform: '',
     noWrap: false,
-    gutterBottom: false,
     headlineMapping: defaultHeadlineMapping,
   };
 
@@ -83,33 +81,51 @@ export default class Typographic extends Component {
     }
   }
 
-  componentWillMount() {
+  static getDerivedStateFromProps() {
     Typographic.updateStyles();
+    return null;
   }
+
+  state = {};
 
   componentDidMount() {
     Typographic.updateStyles();
   }
 
   render() {
-    const { className, children = null, type, align, transform, noWrap, gutterBottom, headlineMapping, ...props } = this.props;
+    const {
+      className,
+      style,
+      type,
+      align,
+      transform,
+      lineClamp,
+      noWrap,
+      gutterBottom,
+      headlineMapping,
+      children = null,
+      ...props
+    } = this.props;
     if (children === null) {
       return null;
     }
     const Content = headlineMapping[type] || 'p';
 
     const finalClassName = classNames(
-      'typographic',
       `typographic-${type}`,
       align && `typographic-align-${align}`,
       transform && `typographic-transform-${transform}`,
-      gutterBottom && 'typographic-gutter-bottom',
       noWrap && 'typographic-no-wrap',
-      className,
+      className
     );
 
+    const finalStyle = { ...style };
+    if (lineClamp) {
+      finalStyle.WebkitLineClamp = lineClamp;
+    }
+
     return (
-      <Content className={finalClassName} {...props}>
+      <Content style={finalStyle} className={finalClassName} {...props}>
         {children}
       </Content>
     );
@@ -124,4 +140,3 @@ export function setTheme(theme) {
 
   return context;
 }
-

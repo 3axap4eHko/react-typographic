@@ -1,136 +1,66 @@
+const defaultFontFamiliy = '"Roboto", "Helvetica", "Arial", sans-serif';
+
+function dash(str) {
+  return str.replace(/([A-Z]+)/g, '-$1').toLowerCase();
+}
+
 function round(value) {
   return Math.round(value * 1e5) / 1e5;
 }
 
-function pxToRem(value, baseFontSize) {
-  return `${value / baseFontSize}rem`;
+function pxToRemScale(scale, baseFontSize, fontSize) {
+  return `${(scale * fontSize) / baseFontSize}rem`;
+}
+
+function createTypograhy({ pxToRem, color, fontFamily, fontWeight, fontSize, ...extra }) {
+  const baseStyle = [
+    `color: ${color};`,
+    `font-family: ${fontFamily};`,
+    `font-size: ${pxToRem(fontSize)};`,
+    `font-weight: ${fontWeight};`,
+  ];
+  return Object.keys(extra)
+    .reduce((result, name) => {
+      return result.concat(`${dash(name)}: ${extra[name]};`);
+    }, baseStyle)
+    .join(' ');
 }
 
 export default ({
-  color = '#212121',
-  fontFamily = '"Roboto", "Helvetica", "Arial", sans-serif',
+  color = '#000000',
+  fontFamily = defaultFontFamiliy,
   fontSize = 14,
-  fontWeightLight = 200,
+  fontWeightLight = 300,
   fontWeightRegular = 400,
   fontWeightMedium = 500,
   baseFontSize = 16,
 } = {}) => {
+  const pxToRem = pxToRemScale.bind(null, fontSize / 14, baseFontSize);
 
   return `
-.typographic {
-  margin: 0;
-  padding: 0;
-  color: ${color};
-  font-family: ${fontFamily};
-  font-size: ${pxToRem(fontSize, baseFontSize)};
-  font-weight: ${fontWeightRegular};
-}
+  .typographic-h1 { ${createTypograhy({ pxToRem, color, fontFamily, fontWeight: fontWeightLight, fontSize: 96, letterSpacing: -1.5 })} }
+  .typographic-h2 { ${createTypograhy({ pxToRem, color, fontFamily, fontWeight: fontWeightLight, fontSize: 60, letterSpacing: -0.5 })} }
+  .typographic-h3 { ${createTypograhy({ pxToRem, color, fontFamily, fontWeight: fontWeightRegular, fontSize: 48, letterSpacing: 0 })} }
+  .typographic-h4 { ${createTypograhy({ pxToRem, color, fontFamily, fontWeight: fontWeightRegular, fontSize: 34, letterSpacing: 0.25 })} }
+  .typographic-h5 { ${createTypograhy({ pxToRem, color, fontFamily, fontWeight: fontWeightRegular, fontSize: 24, letterSpacing: 0 })} }
+  .typographic-h6 { ${createTypograhy({ pxToRem, color, fontFamily, fontWeight: fontWeightMedium, fontSize: 20, letterSpacing: 0.15 })} }
+  .typographic-subtitle1 { ${createTypograhy({ pxToRem, color, fontFamily, fontWeight: fontWeightRegular, fontSize: 16, letterSpacing: 0.15 })} }
+  .typographic-subtitle2 { ${createTypograhy({ pxToRem, color, fontFamily, fontWeight: fontWeightMedium, fontSize: 14, letterSpacing: 0.1 })} }
+  .typographic-body1 { ${createTypograhy({ pxToRem, color, fontFamily, fontWeight: fontWeightRegular, fontSize: 16, letterSpacing: 0.15 })} }
+  .typographic-body2 { ${createTypograhy({ pxToRem, color, fontFamily, fontWeight: fontWeightRegular, fontSize: 14, letterSpacing: 0.15 })} }
+  .typographic-button { ${createTypograhy({ pxToRem, color, fontFamily, fontWeight: fontWeightMedium, fontSize: 14, letterSpacing: 0.4, textTransform: 'uppercase' })} }
+  .typographic-caption { ${createTypograhy({ pxToRem, color, fontFamily, fontWeight: fontWeightRegular, fontSize: 12, letterSpacing: 0.4 })} }
+  .typographic-overline { ${createTypograhy({ pxToRem, color, fontFamily, fontWeight: fontWeightRegular, fontSize: 12, letterSpacing: 1, textTransform: 'uppercase' })} }
 
-.typographic-display4 {
-  font-size: ${pxToRem(112, baseFontSize)};
-  letter-spacing: -0.04em;
-  line-height: ${round(128 / 112)}em;
-  margin-left: -0.06em;
-  font-weight: ${fontWeightLight};
-}
+  .typographic-align-inherit { text-align: inherit; }
+  .typographic-align-left { text-align: left; }
+  .typographic-align-right { text-align: right; }
+  .typographic-align-center { text-align: center; }
 
-.typographic-display3 {
-  font-size: ${pxToRem(56, baseFontSize)};
-  letter-spacing: -0.02em;
-  line-height: ${round(73 / 56)}em;
-  margin-left: -0.04em;
-}
+  .typographic-transform-uppercase { text-transform: uppercase; }
+  .typographic-transform-lowercase { text-transform: lowercase; }
+  .typographic-transform-capitalize { text-transform: capitalize; }
 
-.typographic-display2 {
-  font-size: ${pxToRem(45, baseFontSize)};
-  line-height: ${round(48 / 45)}em;
-  margin-left: -0.04em;
-}
-
-.typographic-display1 {
-  font-size: ${pxToRem(34, baseFontSize)};
-  line-height: ${round(41 / 34)}em;
-  margin-left: -0.04em;
-}
-
-.typographic-headline {
-  font-size: ${pxToRem(24, baseFontSize)};
-  line-height: ${round(32.5 / 24)}em;
-}
-
-.typographic-title {
-  font-size: ${pxToRem(21, baseFontSize)};
-  line-height: ${round(24.5 / 21)}em;
-  font-weight: ${fontWeightMedium};
-}
-
-.typographic-subheading {
-  font-size: ${pxToRem(16, baseFontSize)};
-  line-height: ${round(24 / 16)}em;
-}
-
-.typographic-body2 {
-  font-size: ${pxToRem(14, baseFontSize)};
-  line-height: ${round(24 / 14)}em;
-  font-weight: ${fontWeightMedium};
-}
-
-.typographic-body1 {
-  font-size: ${pxToRem(14, baseFontSize)};
-  line-height: ${round(20.5 / 14)}em;
-}
-
-.typographic-caption {
-  font-size: ${pxToRem(12, baseFontSize)};
-  line-height: ${round(16.5 / 12)}em;
-}
-
-.typographic-label {
-  font-size: ${pxToRem(12, baseFontSize)};
-  line-height: ${round(16.5 / 12)}em;
-}
-
-.typographic-button {
-  text-transform: uppercase;
-  font-weight: ${fontWeightMedium};
-}
-
-.typographic-link {
-  font-weight: ${fontWeightMedium};
-}
-
-.typographic-align-left {
-  text-align: left;
-}
-.typographic-align-center {
-  text-align: center;
-}
-.typographic-align-right {
-  text-align: right;
-}
-.typographic-align-justify {
-  text-align: justify;
-}
-
-.typographic-transform-uppercase {
-  text-transform: uppercase;
-}
-.typographic-transform-lowercase {
-  text-transform: lowercase;
-}
-.typographic-transform-capitalize {
-  text-transform: capitalize;
-}
-
-.typographic-gutter-bottom {
-  margin-bottom: 0.35em;
-}
-
-.typographic-no-wrap {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
+  .typographic-no-wrap: { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; },
 `;
 };

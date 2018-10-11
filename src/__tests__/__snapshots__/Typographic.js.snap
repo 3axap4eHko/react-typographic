@@ -3,16 +3,18 @@
 exports[`Typographic empty is null 1`] = `null`;
 
 exports[`Typographic empty string is not null 1`] = `
-<span
-  className="typographic typographic-body1"
+<p
+  className="typographic-body1"
+  style={Object {}}
 >
   
-</span>
+</p>
 `;
 
 exports[`Typographic renders with classes 1`] = `
 <h1
-  className="typographic typographic-title typographic-align-center typographic-transform-uppercase typographic-gutter-bottom typographic-no-wrap"
+  className="typographic-h1 typographic-align-center typographic-transform-uppercase typographic-no-wrap"
+  style={Object {}}
 >
   
 </h1>
